@@ -1,0 +1,57 @@
+﻿@model ProductVM
+@{
+	ViewBag.CardTitle = "Edit Product";
+	ViewBag.PageTitle = "Product Mangment";
+}
+<div class="row">
+<div class="col-md-4">
+        <form asp-action="Edit" method="post" class="p-4 rounded shadow-sm bg-light" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="product.Id" />
+    <input type="hidden" asp-for="product.Img" />
+
+    <div class="form-group">
+        <label asp-for="product.Name" class="form-label fw-bold"></label>
+        <input asp-for="product.Name" type="text" class="form-control" />
+        <span asp-validation-for="product.Name" class="text-danger small"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="product.Description" class="form-label fw-bold"></label>
+        <input asp-for="product.Description" type="text" class="form-control" />
+        <span asp-validation-for="product.Description" class="text-danger small"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="product.Price" class="form-label fw-bold"></label>
+        <input asp-for="product.Price" type="text" class="form-control" />
+        <span asp-validation-for="product.Price" class="text-danger small"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="product.Img" class="form-label fw-bold"></label>
+        <input type="file" name="file" id="imgfile" class="form-control" />
+    </div>
+
+    <div class="mb-4">
+        <label asp-for="product.CategoryId" class="form-label fw-bold"></label>
+        <select asp-for="product.CategoryId" class="form-control" asp-items="Model.CategoryList">
+            <option disabled selected>-- Select Category --</option>
+        </select>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary px-4">Save</button>
+</form>
+</div>
+    <div class="col-md-4">
+		<div class="card">
+			<img src="@Model.product.Img" class="card-img-top" alt="Product Image" />
+		</div>
+    </div>
+
+</div>
+
+@section scripts {
+	<partial name="_ValidationScriptsPartial" />
+	}

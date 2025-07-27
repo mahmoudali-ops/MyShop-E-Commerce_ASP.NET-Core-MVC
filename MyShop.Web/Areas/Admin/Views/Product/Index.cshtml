@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Product>
+@{
+    ViewBag.CardTitle = "View Products";
+    ViewBag.PageTitle = "Products Mangment";
+}
+
+<table id="mytable" class="table table-hover" width="100%">
+    <thead class="text-bold" >    
+        <tr>
+        <td>Name</td>
+        <td>Description</td>
+        <td>Price</td>
+        <td>Category</td>
+        <td>View Action</td>
+    </tr>
+    </thead>
+
+</table>
+
+<a href="~/Admin/Product/Create/" class="btn btn-primary">Create</a>
+
+@section scripts{
+	<script src="~/js/products.js"></script>
+
+}
+

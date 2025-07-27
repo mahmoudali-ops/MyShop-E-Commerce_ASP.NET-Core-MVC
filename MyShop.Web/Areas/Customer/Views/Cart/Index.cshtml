@@ -1,0 +1,66 @@
+﻿@model ShopingCartVM
+
+<section class="py-5">
+    <div class="container">
+        <div class="card border-0 shadow rounded-4">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center px-4 py-3">
+                <h5 class="mb-0">Shopping Cart</h5>
+                <a href="~/Home/Index" class="btn btn-outline-light btn-sm">Continue Shopping</a>
+            </div>
+            <div class="card-body bg-light">
+
+                @foreach (var item in Model.CartsList)
+                {
+                    <div class="card mb-3 rounded-3 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+
+                                <!-- Product Info -->
+                                <div class="d-flex align-items-center">
+                                    <img src="@item.product.Img" class="rounded" style="width: 80px;" />
+                                    <div class="ms-3">
+                                        <h5 class="mb-1">@item.product.Name</h5>
+                                        <p class="text-muted mb-0 small">@item.product.Description</p>
+                                    </div>
+                                </div>
+
+                                <!-- Price x Quantity -->
+                                <div>
+                                    <h5 class="mb-0 fw-bold">$@item.product.Price.ToString("N2") × @item.Count</h5>
+                                </div>
+
+                                <!-- Quantity Controls -->
+                                <div class="d-flex gap-2 align-items-center">
+                                    <a class="btn btn-outline-dark btn-sm" asp-action="Plus" asp-route-cartid="@item.Id">+</a>
+                                    <span class="fw-semibold">@item.Count</span>
+                                    <a class="btn btn-outline-dark btn-sm" asp-action="Mins" asp-route-cartid="@item.Id">-</a>
+                                </div>
+
+                                <!-- Remove -->
+                                <div>
+                                    <a class="btn btn-danger btn-sm" asp-action="Remove" asp-route-cartid="@item.Id">
+                                        <i class="fas fa-trash-alt">X</i>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <!-- Total Summary -->
+                <div class="d-flex justify-content-end mt-4">
+                    <div class="border-top pt-3 text-end">
+                        <h5>Total (USD)</h5>
+                        <h3 class="fw-bold text-dark">$@Model.TotalCost.ToString("N2")</h3>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a href="~/Customer/Cart/Summry" class="bs-tooltip-top"><span> Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span></a>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

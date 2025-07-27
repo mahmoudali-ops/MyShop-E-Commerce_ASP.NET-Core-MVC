@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Category>
+@{
+    ViewBag.CardTitle = "View Category";
+    ViewBag.PageTitle = "Category Mangment";
+}
+
+<table class="table table-hover" width="100%">
+    <thead class="text-bold">   
+       <tr>
+        <td>Name</td>
+        <td>Description</td>
+        <td>Created time</td>
+        <td>View Action</td>
+       </tr>
+    </thead>
+
+    @foreach (Category item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@Html.Raw(@item.Description)</td>
+            <td>@item.CreatedTime</td>
+            <td>
+                <a href="~/Admin/Category/Edit/@item.ID" class="btn btn-success">Edit</a>
+                <a href="~/Admin/Category/Delete/@item.ID" class="btn btn-danger">Delete</a>
+            </td>
+    </tr>
+    }
+</table>
+
+<a href="~/Admin/Category/Create/" class="btn btn-primary">Create</a>
+

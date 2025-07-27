@@ -1,0 +1,90 @@
+﻿@model ProductVM
+
+@{
+    ViewBag.CardTitle = "Create Product";
+    ViewBag.PageTitle = "Product Management";
+}
+
+<div class="container mt-4">
+    <h3 class="fw-semibold mb-4 text-dark">@ViewBag.PageTitle</h3>
+
+    <div class="row g-4">
+        <!-- Form Section -->
+        <div class="col-md-8">
+            <div class="card shadow-sm rounded-4 p-4 bg-white">
+                <div class="card-body">
+                    <form asp-action="Create" method="post" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="product.Id" />
+
+                        <!-- Product Name -->
+                        <div class="mb-3">
+                            <label asp-for="product.Name" class="form-label fs-5 fw-semibold"></label>
+                            <input asp-for="product.Name" class="form-control rounded-3" placeholder="Product name" />
+                            <span asp-validation-for="product.Name" class="text-danger fs-6"></span>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-3">
+                            <label asp-for="product.Description" class="form-label fs-5 fw-semibold"></label>
+                            <textarea id="default-editor" asp-for="product.Description" class="form-control rounded-3" placeholder="Product description"></textarea>
+                            <span asp-validation-for="product.Description" class="text-danger fs-6"></span>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="mb-3">
+                            <label asp-for="product.Price" class="form-label fs-5 fw-semibold"></label>
+                            <input asp-for="product.Price" class="form-control rounded-3" placeholder="Price" />
+                            <span asp-validation-for="product.Price" class="text-danger fs-6"></span>
+                        </div>
+
+                        <!-- Image Upload -->
+                        <div class="mb-3">
+                            <label asp-for="product.Img" class="form-label fs-5 fw-semibold"></label>
+                            <input type="file" name="file"  class="form-control rounded-3" onchange="fillimg(event);" />
+                        </div>
+
+                        <!-- Category -->
+                        <div class="mb-4">
+                            <label asp-for="product.CategoryId" class="form-label fs-5 fw -semibold"></label>
+                            <select asp-for="product.CategoryId" class="form-control rounded-3" asp-items="Model.CategoryList">
+                                <option disabled selected>-- Select Category --</option>
+                            </select>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill fs-6">
+                            <i class="bi bi-save me-1"></i> Create a Product 
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Preview -->
+        <div class="col-md-4">
+            <div class="card shadow-sm rounded-4">
+                <img id="image" class="card-img-top p-3" style="max-height: 250px; object-fit: contain;" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        tinymce.init({
+            selector: 'textarea#default-editor',
+            menubar: false,
+            height: 180,
+            plugins: 'lists link',
+            toolbar: 'bold italic underline | bullist numlist | link',
+        });
+
+        var fillimg = function (event) {
+            var imgholder = document.getElementById("image");
+            imgholder.src = URL.createObjectURL(event.target.files[0]);
+        }
+    </script>
+}
